@@ -6,4 +6,6 @@ cd project-name
 
 # Install dependencies
 npm install
+
+
 THIS IS THE END'
