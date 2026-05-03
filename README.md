@@ -8,4 +8,3 @@ cd project-name
 npm install
 
 
-THIS IS THE END'
