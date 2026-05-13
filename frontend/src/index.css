@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FAFAF8;
+    color: #1A1916;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .grid-bg {
+    background-image:
+      linear-gradient(#E5E4DF 1px, transparent 1px),
+      linear-gradient(90deg, #E5E4DF 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .font-serif-italic {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+  }
+}
+
+/* Syntax highlighter overrides */
+.code-block pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: #FAFAF8 !important;
+  font-family: "DM Mono", monospace !important;
+  font-size: 12.5px !important;
+  line-height: 1.7 !important;
+}
+
+.code-block code {
+  font-family: "DM Mono", monospace !important;
+}
+
+.code-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.code-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.code-scrollbar::-webkit-scrollbar-thumb {
+  background: #D0CFC9;
+  border-radius: 999px;
+}
