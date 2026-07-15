@@ -84,17 +84,34 @@ def _strip_markdown(code: str) -> str:
 
 
 def generate_tests(req: GenerateRequest) -> tuple[str, int]:
-    client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+    try:
+        client = anthropic.Anthropic(
+            api_key=settings.anthropic_api_key,
+            base_url=settings.anthropic_base_url,
+        )
 
-    message = client.messages.create(
-        model=settings.claude_model,
-        max_tokens=settings.max_tokens,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": _build_user_prompt(req)}],
-    )
+        message = client.messages.create(
+            model=settings.claude_model,
+            max_tokens=settings.max_tokens,
+            system=SYSTEM_PROMPT,
+            messages=[
+                {
+                    "role": "user",
+                    "content": _build_user_prompt(req),
+                }
+            ],
+        )
 
-    raw = "".join(block.text for block in message.content if hasattr(block, "text"))
-    code = _strip_markdown(raw)
-    count = _count_tests(code, req.framework.value)
+        raw = "".join(
+            block.text for block in message.content if hasattr(block, "text")
+        )
 
-    return code, count
+        code = _strip_markdown(raw)
+        count = _count_tests(code, req.framework.value)
+
+        return code, count
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise Exception(f"AI service error: {e}")
